@@ -3,6 +3,7 @@ package com.example.erpsystem.ui.screens
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,14 +23,18 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.TrendingUp
 import androidx.compose.material.icons.filled.ArrowUpward
 import androidx.compose.material.icons.filled.AttachMoney
+import androidx.compose.material.icons.filled.Category
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Inventory
+import androidx.compose.material.icons.filled.Inventory2
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.People
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.ShoppingCart
-import androidx.compose.material.icons.filled.TrendingUp
+import androidx.compose.material.icons.filled.Store
+import androidx.compose.material.icons.filled.SwapHoriz
+import androidx.compose.material.icons.filled.Warehouse
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
@@ -72,6 +77,7 @@ import com.example.erpsystem.ui.theme.ErrorRed
 import com.example.erpsystem.ui.theme.PrimaryBlue
 import com.example.erpsystem.ui.theme.PrimaryDarkBlue
 import com.example.erpsystem.ui.theme.PrimaryLightBlue
+import com.example.erpsystem.ui.theme.SecondaryBlue
 import com.example.erpsystem.ui.theme.SuccessGreen
 import com.example.erpsystem.ui.theme.TextMuted
 import com.example.erpsystem.ui.theme.TextPrimary
@@ -79,13 +85,24 @@ import com.example.erpsystem.ui.theme.TextSecondary
 import com.example.erpsystem.ui.theme.WarningAmber
 
 /**
- * Screen 10: Executive Dashboard
+ * Screen 10: Executive Dashboard with Full Module Navigation Connections
  */
 @Composable
 fun DashboardScreen(
     onNavigateToNotifications: () -> Unit = {},
     onNavigateToSearch: () -> Unit = {},
-    onNavigateToInventory: () -> Unit = {}
+    onNavigateToInventory: () -> Unit = {},
+    onNavigateToProducts: () -> Unit = {},
+    onNavigateToStockMovement: () -> Unit = {},
+    onNavigateToCustomers: () -> Unit = {},
+    onNavigateToSuppliers: () -> Unit = {},
+    onNavigateToCategories: () -> Unit = {},
+    onNavigateToWarehouses: () -> Unit = {},
+    onNavigateToSales: () -> Unit = {},
+    onNavigateToPurchases: () -> Unit = {},
+    onNavigateToQuotations: () -> Unit = {},
+    onNavigateToInvoices: () -> Unit = {},
+    onNavigateToPayments: () -> Unit = {}
 ) {
     var selectedBottomNav by remember { mutableIntStateOf(0) }
     val scrollState = rememberScrollState()
@@ -99,9 +116,9 @@ fun DashboardScreen(
                 val navItems = listOf(
                     Triple("Home", Icons.Default.Home, 0),
                     Triple("Inventory", Icons.Default.Inventory, 1),
-                    Triple("Sales", Icons.Default.ShoppingCart, 2),
+                    Triple("Products", Icons.Default.Inventory2, 2),
                     Triple("Customers", Icons.Default.People, 3),
-                    Triple("Profile", Icons.Default.Person, 4)
+                    Triple("Suppliers", Icons.Default.Store, 4)
                 )
 
                 navItems.forEach { (label, icon, index) ->
@@ -109,7 +126,12 @@ fun DashboardScreen(
                         selected = selectedBottomNav == index,
                         onClick = {
                             selectedBottomNav = index
-                            if (index == 1) onNavigateToInventory()
+                            when (index) {
+                                1 -> onNavigateToInventory()
+                                2 -> onNavigateToProducts()
+                                3 -> onNavigateToCustomers()
+                                4 -> onNavigateToSuppliers()
+                            }
                         },
                         icon = { Icon(imageVector = icon, contentDescription = label) },
                         label = { Text(text = label, fontWeight = if (selectedBottomNav == index) FontWeight.Bold else FontWeight.Medium) },
@@ -198,7 +220,7 @@ fun DashboardScreen(
 
                     Spacer(modifier = Modifier.height(20.dp))
 
-                    // Hero Metric Card inside header
+                    // Hero Metric Card
                     Surface(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -270,32 +292,67 @@ fun DashboardScreen(
                 }
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
-            // Grid KPI Metric Cards
+            // Quick Access ERP Modules Section
             Column(modifier = Modifier.padding(horizontal = 24.dp)) {
+                Text(
+                    text = "Quick Access Modules 🚀",
+                    style = MaterialTheme.typography.titleLarge.copy(
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 18.sp
+                    )
+                )
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                // Scrollable Quick Access Modules Chips
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .horizontalScroll(rememberScrollState()),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    QuickModuleChip(title = "Sales", icon = Icons.Default.ShoppingCart, color = PrimaryBlue, onClick = onNavigateToSales)
+                    QuickModuleChip(title = "Purchases", icon = Icons.Default.Inventory2, color = AccentCyan, onClick = onNavigateToPurchases)
+                    QuickModuleChip(title = "Invoices", icon = Icons.AutoMirrored.Filled.TrendingUp, color = SuccessGreen, onClick = onNavigateToInvoices)
+                    QuickModuleChip(title = "Quotations", icon = Icons.Default.Category, color = WarningAmber, onClick = onNavigateToQuotations)
+                    QuickModuleChip(title = "Payments", icon = Icons.Default.AttachMoney, color = SecondaryBlue, onClick = onNavigateToPayments)
+                    QuickModuleChip(title = "Products", icon = Icons.Default.Inventory2, color = PrimaryBlue, onClick = onNavigateToProducts)
+                    QuickModuleChip(title = "Stock Movement", icon = Icons.Default.SwapHoriz, color = WarningAmber, onClick = onNavigateToStockMovement)
+                    QuickModuleChip(title = "Customers", icon = Icons.Default.People, color = AccentTeal, onClick = onNavigateToCustomers)
+                    QuickModuleChip(title = "Suppliers", icon = Icons.Default.Store, color = SecondaryBlue, onClick = onNavigateToSuppliers)
+                    QuickModuleChip(title = "Warehouses", icon = Icons.Default.Warehouse, color = SuccessGreen, onClick = onNavigateToWarehouses)
+                    QuickModuleChip(title = "Categories", icon = Icons.Default.Category, color = PrimaryDarkBlue, onClick = onNavigateToCategories)
+                }
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                // Grid KPI Metric Cards
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     KpiMetricCard(
                         modifier = Modifier.weight(1f),
-                        title = "Total Orders",
-                        value = "1,128",
-                        change = "+8.2%",
-                        icon = Icons.Default.ShoppingCart,
+                        title = "Products List",
+                        value = "245 Items",
+                        change = "+12 New",
+                        icon = Icons.Default.Inventory2,
                         iconBg = PrimaryLightBlue,
-                        iconColor = PrimaryBlue
+                        iconColor = PrimaryBlue,
+                        onClick = onNavigateToProducts
                     )
 
                     KpiMetricCard(
                         modifier = Modifier.weight(1f),
-                        title = "Pending Payments",
-                        value = "₹ 32.5 K",
-                        change = "4 Overdue",
-                        icon = Icons.Default.AttachMoney,
-                        iconBg = WarningAmber.copy(alpha = 0.15f),
-                        iconColor = WarningAmber
+                        title = "Customers CRM",
+                        value = "128 Clients",
+                        change = "3 Pending",
+                        icon = Icons.Default.People,
+                        iconBg = AccentTeal.copy(alpha = 0.15f),
+                        iconColor = AccentTeal,
+                        onClick = onNavigateToCustomers
                     )
                 }
 
@@ -307,24 +364,24 @@ fun DashboardScreen(
                 ) {
                     KpiMetricCard(
                         modifier = Modifier.weight(1f),
-                        title = "Total Stock",
-                        value = "8,520 Pcs",
-                        change = "245 Items",
-                        icon = Icons.Default.Inventory,
-                        iconBg = SuccessGreen.copy(alpha = 0.15f),
-                        iconColor = SuccessGreen,
-                        onClick = onNavigateToInventory
+                        title = "Suppliers",
+                        value = "45 Vendors",
+                        change = "Active",
+                        icon = Icons.Default.Store,
+                        iconBg = SecondaryBlue.copy(alpha = 0.15f),
+                        iconColor = SecondaryBlue,
+                        onClick = onNavigateToSuppliers
                     )
 
                     KpiMetricCard(
                         modifier = Modifier.weight(1f),
-                        title = "Low Stock Alert",
-                        value = "12 Items",
-                        change = "Action Needed",
-                        icon = Icons.Default.Warning,
-                        iconBg = ErrorRed.copy(alpha = 0.15f),
-                        iconColor = ErrorRed,
-                        onClick = onNavigateToInventory
+                        title = "Warehouses",
+                        value = "3 Locations",
+                        change = "8,520 Pcs",
+                        icon = Icons.Default.Warehouse,
+                        iconBg = SuccessGreen.copy(alpha = 0.15f),
+                        iconColor = SuccessGreen,
+                        onClick = onNavigateToWarehouses
                     )
                 }
 
@@ -369,7 +426,7 @@ fun DashboardScreen(
 
                         Spacer(modifier = Modifier.height(20.dp))
 
-                        // Chart Line Graph Simulation
+                        // Chart Line Graph
                         DashboardLineChart(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -380,37 +437,77 @@ fun DashboardScreen(
 
                 Spacer(modifier = Modifier.height(24.dp))
 
-                // Low Stock Alerts Quick List Section
+                // Stock Movement Quick Logs Section
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "Low Stock Alerts ⚠️",
+                        text = "Recent Stock Movements 📊",
                         style = MaterialTheme.typography.titleLarge.copy(
                             fontWeight = FontWeight.Bold,
                             fontSize = 18.sp
                         )
                     )
                     Text(
-                        text = "View All",
+                        text = "View Log",
                         style = MaterialTheme.typography.labelLarge.copy(
                             color = PrimaryBlue,
                             fontWeight = FontWeight.Bold
                         ),
-                        modifier = Modifier.clickable { onNavigateToInventory() }
+                        modifier = Modifier.clickable { onNavigateToStockMovement() }
                     )
                 }
 
                 Spacer(modifier = Modifier.height(12.dp))
 
-                LowStockItemRow(name = "Logitech MX Keyboard", category = "Electronics", remaining = 5)
+                LowStockItemRow(name = "Logitech MX Keyboard", category = "Sales Order #1042 (-5 Pcs)", remaining = 5)
                 Spacer(modifier = Modifier.height(8.dp))
-                LowStockItemRow(name = "Ergonomic Optical Mouse", category = "Accessories", remaining = 2)
+                LowStockItemRow(name = "Wireless Optical Mouse", category = "Purchase Order #PO-0024 (+50 Pcs)", remaining = 120)
 
                 Spacer(modifier = Modifier.height(24.dp))
             }
+        }
+    }
+}
+
+@Composable
+private fun QuickModuleChip(
+    title: String,
+    icon: ImageVector,
+    color: Color,
+    onClick: () -> Unit
+) {
+    Surface(
+        modifier = Modifier
+            .clickable { onClick() }
+            .shadow(4.dp, RoundedCornerShape(16.dp), spotColor = color),
+        shape = RoundedCornerShape(16.dp),
+        color = Color.White
+    ) {
+        Row(
+            modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(34.dp)
+                    .clip(CircleShape)
+                    .background(color.copy(alpha = 0.15f)),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(imageVector = icon, contentDescription = title, tint = color, modifier = Modifier.size(18.dp))
+            }
+            Spacer(modifier = Modifier.width(10.dp))
+            Text(
+                text = title,
+                style = MaterialTheme.typography.labelLarge.copy(
+                    fontWeight = FontWeight.Bold,
+                    color = TextPrimary,
+                    fontSize = 13.sp
+                )
+            )
         }
     }
 }
@@ -504,10 +601,10 @@ private fun LowStockItemRow(
                     modifier = Modifier
                         .size(40.dp)
                         .clip(CircleShape)
-                        .background(ErrorRed.copy(alpha = 0.12f)),
+                        .background(PrimaryLightBlue),
                     contentAlignment = Alignment.Center
                 ) {
-                    Icon(imageVector = Icons.Default.Warning, contentDescription = null, tint = ErrorRed, modifier = Modifier.size(20.dp))
+                    Icon(imageVector = Icons.Default.Inventory2, contentDescription = null, tint = PrimaryBlue, modifier = Modifier.size(20.dp))
                 }
                 Spacer(modifier = Modifier.width(12.dp))
                 Column {
@@ -517,12 +614,12 @@ private fun LowStockItemRow(
             }
 
             Surface(
-                color = ErrorRed.copy(alpha = 0.15f),
+                color = PrimaryLightBlue,
                 shape = RoundedCornerShape(10.dp)
             ) {
                 Text(
-                    text = "$remaining left",
-                    style = MaterialTheme.typography.labelMedium.copy(color = ErrorRed, fontWeight = FontWeight.Bold),
+                    text = "$remaining units",
+                    style = MaterialTheme.typography.labelMedium.copy(color = PrimaryBlue, fontWeight = FontWeight.Bold),
                     modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
                 )
             }

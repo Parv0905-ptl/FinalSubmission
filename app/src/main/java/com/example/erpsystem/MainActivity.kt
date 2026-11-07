@@ -10,21 +10,37 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.erpsystem.ui.navigation.ErpNavigationApp
+import com.example.erpsystem.ui.screens.AddCustomerScreen
 import com.example.erpsystem.ui.screens.AddProductScreen
+import com.example.erpsystem.ui.screens.AddSupplierScreen
 import com.example.erpsystem.ui.screens.CategoryScreen
 import com.example.erpsystem.ui.screens.CreateCompanyScreen
+import com.example.erpsystem.ui.screens.CustomerDetailsScreen
+import com.example.erpsystem.ui.screens.CustomerListScreen
 import com.example.erpsystem.ui.screens.DashboardScreen
 import com.example.erpsystem.ui.screens.ForgotPasswordScreen
 import com.example.erpsystem.ui.screens.GlobalSearchScreen
+import com.example.erpsystem.ui.screens.GoodsReceivedScreen
 import com.example.erpsystem.ui.screens.InventoryDashboardScreen
+import com.example.erpsystem.ui.screens.InvoiceDetailsScreen
+import com.example.erpsystem.ui.screens.InvoiceListScreen
 import com.example.erpsystem.ui.screens.LoginScreen
 import com.example.erpsystem.ui.screens.NotificationsScreen
 import com.example.erpsystem.ui.screens.OnboardingScreen
 import com.example.erpsystem.ui.screens.OtpVerificationScreen
+import com.example.erpsystem.ui.screens.PaymentsScreen
 import com.example.erpsystem.ui.screens.ProductDetailsScreen
 import com.example.erpsystem.ui.screens.ProductListScreen
+import com.example.erpsystem.ui.screens.PurchaseOrderListScreen
+import com.example.erpsystem.ui.screens.PurchasesScreen
+import com.example.erpsystem.ui.screens.QuotationScreen
 import com.example.erpsystem.ui.screens.RegisterScreen
+import com.example.erpsystem.ui.screens.SalesDashboardScreen
+import com.example.erpsystem.ui.screens.SalesOrderListScreen
 import com.example.erpsystem.ui.screens.SplashScreen
+import com.example.erpsystem.ui.screens.StockMovementScreen
+import com.example.erpsystem.ui.screens.SupplierDetailsScreen
+import com.example.erpsystem.ui.screens.SupplierListScreen
 import com.example.erpsystem.ui.screens.WarehouseDetailsScreen
 import com.example.erpsystem.ui.screens.WarehouseScreen
 import com.example.erpsystem.ui.theme.ERPSystemTheme
@@ -192,5 +208,133 @@ fun PreviewWarehouseScreen() {
 fun PreviewWarehouseDetailsScreen() {
     ERPSystemTheme {
         WarehouseDetailsScreen()
+    }
+}
+
+@Preview(showBackground = true, name = "20. Stock Movement")
+@Composable
+fun PreviewStockMovementScreen() {
+    ERPSystemTheme {
+        StockMovementScreen()
+    }
+}
+
+@Preview(showBackground = true, name = "21. Customer List")
+@Composable
+fun PreviewCustomerListScreen() {
+    ERPSystemTheme {
+        CustomerListScreen()
+    }
+}
+
+@Preview(showBackground = true, name = "22. Add Customer")
+@Composable
+fun PreviewAddCustomerScreen() {
+    ERPSystemTheme {
+        AddCustomerScreen()
+    }
+}
+
+@Preview(showBackground = true, name = "23. Customer Details")
+@Composable
+fun PreviewCustomerDetailsScreen() {
+    ERPSystemTheme {
+        CustomerDetailsScreen()
+    }
+}
+
+@Preview(showBackground = true, name = "24. Supplier List")
+@Composable
+fun PreviewSupplierListScreen() {
+    ERPSystemTheme {
+        SupplierListScreen()
+    }
+}
+
+@Preview(showBackground = true, name = "25. Add Supplier")
+@Composable
+fun PreviewAddSupplierScreen() {
+    ERPSystemTheme {
+        AddSupplierScreen()
+    }
+}
+
+@Preview(showBackground = true, name = "26. Supplier Details")
+@Composable
+fun PreviewSupplierDetailsScreen() {
+    ERPSystemTheme {
+        SupplierDetailsScreen()
+    }
+}
+
+@Preview(showBackground = true, name = "27. Sales Dashboard")
+@Composable
+fun PreviewSalesDashboardScreen() {
+    ERPSystemTheme {
+        SalesDashboardScreen()
+    }
+}
+
+@Preview(showBackground = true, name = "28. Quotations")
+@Composable
+fun PreviewQuotationScreen() {
+    ERPSystemTheme {
+        QuotationScreen()
+    }
+}
+
+@Preview(showBackground = true, name = "31. Sales Orders")
+@Composable
+fun PreviewSalesOrderListScreen() {
+    ERPSystemTheme {
+        SalesOrderListScreen()
+    }
+}
+
+@Preview(showBackground = true, name = "32. Invoices")
+@Composable
+fun PreviewInvoiceListScreen() {
+    ERPSystemTheme {
+        InvoiceListScreen()
+    }
+}
+
+@Preview(showBackground = true, name = "33. Invoice Details")
+@Composable
+fun PreviewInvoiceDetailsScreen() {
+    ERPSystemTheme {
+        InvoiceDetailsScreen()
+    }
+}
+
+@Preview(showBackground = true, name = "34. Payments & Cashflow")
+@Composable
+fun PreviewPaymentsScreen() {
+    ERPSystemTheme {
+        PaymentsScreen()
+    }
+}
+
+@Preview(showBackground = true, name = "35. Purchases Dashboard")
+@Composable
+fun PreviewPurchasesScreen() {
+    ERPSystemTheme {
+        PurchasesScreen()
+    }
+}
+
+@Preview(showBackground = true, name = "36. Purchase Orders")
+@Composable
+fun PreviewPurchaseOrderListScreen() {
+    ERPSystemTheme {
+        PurchaseOrderListScreen()
+    }
+}
+
+@Preview(showBackground = true, name = "37. Goods Received (GRN)")
+@Composable
+fun PreviewGoodsReceivedScreen() {
+    ERPSystemTheme {
+        GoodsReceivedScreen()
     }
 }
